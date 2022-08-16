@@ -12,7 +12,7 @@ export const NavBar = () =>{
         <>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                <Navbar.Brand href="/">Pagina de Usuários</Navbar.Brand>
+                <Navbar.Brand href="/">Categorias</Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                     <Nav.Link href="/usuarios">Usuários</Nav.Link>

@@ -1,14 +1,18 @@
 import React, { useState, useContext } from "react";
-import { Container, Button, Form, Alert } from "react-bootstrap";
-import { Context } from "../../Context/AuthContext";
+// import Container from "react-bootstrap/container";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
+import { Context } from "../../Context/AuthContext";
 import "./styles.css";
+import('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Libre+Franklin:wght@200;500&family=Merriweather:wght@300&display=swap');
 
 export function Login() {
   const history = useHistory();
 
   const { authenticated, signIn } = useContext(Context);
+  console.log(`Situação na página Login: ${authenticated}`);
 
   const [user, setUser] = useState({
     email: "",
@@ -21,42 +25,48 @@ export function Login() {
     loading: false,
   });
 
-  /* change dos imputs*/
   const valorInput = (e) =>
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
 
-  /* submissao do form */
   const loginSubmit = async (e) => {
     e.preventDefault();
+    // console.log(user.email);
+    // console.log(user.password);
     const headers = {
       "Content-Type": "application/json",
     };
+
     setStatus({
       loading: true,
     });
+
     await api
-      .post("/login", user, { headers })
+      .post("/users/login", user, { headers })
       .then((response) => {
-        setStatus({
-          loading: false,
-        });
+        // console.log(response)
+        // setStatus({
+        //   type: 'success',
+        //   mensagem: response.data.mensagem,
+        //   loading: false
+        // })
+        setStatus({ loading: false });
         localStorage.setItem("token", response.data.token);
         signIn(true);
-        return history.push("/dashboard");
+        return history.push("/categorias");
       })
-      .catch((err) => {
+      .catch((error) => {
         setStatus({
           type: "error",
-          mensagem: "Erro: tente mais tarde",
-          loading: false,
+          mensagem: "erro: tente mais tarde!",
         });
-        if (err.response) {
+        if (error.response) {
+          // console.log(error.response)
           setStatus({
             type: "error",
-            mensagem: err.response.data.mensagem,
+            mensagem: error.response.data.mensagem,
             loading: false,
           });
         }
@@ -64,61 +74,64 @@ export function Login() {
   };
 
   return (
-    <>
-      <Container className="box">
-        <h1>Faça seu login</h1>
-        <Form onSubmit={loginSubmit} className="borderForm">
-          {status.type == "error" ? (
-            <Alert size="big" variant="danger">
-              <p>{status.mensagem}</p>
-            </Alert>
-          ) : (
-            ""
-          )}
-          {status.type == "success" ? (
-            <Alert variant="success">
-              <p>{status.mensagem}</p>{" "}
-            </Alert>
-          ) : (
-            ""
-          )}
-          {status.loading ? <p>Validando...</p> : ""}
+    <div className="box">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+      <div className="h1-login">
+        <h1>Faça seu Login</h1>
+      </div>
+      {/* <Container className="box"> */}
+      <Form onSubmit={loginSubmit} className="borderForm">
+        {status.type == "error" ? (
+          <h3 className="p-alert-error">{status.mensagem}</h3>
+        ) : (
+          ""
+        )}
+        {status.type == "success" ? (
+          <h3 className="p-alert-success">{status.mensagem}</h3>
+        ) : (
+          ""
+        )}
+        {status.loading ? (
+          <h3 className="p-alert-validando">Validando...</h3>
+        ) : (
+          ""
+        )}
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>E-mail:</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="Digite seu e-mail"
-              onChange={valorInput}
-            />
-            <Form.Text className="text-muted">
-              Nunca compartilharemos seu e-mail com outra pessoa.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Senha:</Form.Label>
-            <div className="password">
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Digite sua senha"
-                onChange={valorInput}
-              />
-            </div>
-          </Form.Group>
-          {status.loading ? (
-            <Button variant="dark" type="submit" disabled>
-              Acessando...{" "}
-            </Button>
-          ) : (
-            <Button variant="dark" type="submit">
-              Enviar{" "}
-            </Button>
-          )}
-        </Form>
-      </Container>
-    </>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="FormLabel">
+            Nome de Usuário ou Endereço de Email:
+          </Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            onChange={valorInput}
+            placeholder="Digite seu e-mail ou usuário"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Senha:</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            onChange={valorInput}
+            placeholder="Digite sua senha"
+          />
+        </Form.Group>
+        {status.loading ? (
+          <Button variant="Secondary" disabled type="submit">
+            Login
+          </Button>
+        ) : (
+          <Button variant="dark" type="submit">
+            Login
+          </Button>
+        )}
+      </Form>
+      {/* </Container> */}
+      
+    </div>
+    
   );
 }
