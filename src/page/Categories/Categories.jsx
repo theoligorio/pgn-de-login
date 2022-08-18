@@ -184,7 +184,7 @@ export const Categories = () => {
       </Navbar>
       <div className="aling-body">
         <h3 className="title">
-          Realize sua consulta através da <Link className="link-categories" to="/listacategorias">Lista de Categorias</Link>
+          Acesse aqui a:  <Link className="link-categories" to="/listacategorias">Lista de Categorias</Link>
         </h3>
       </div>
     </div>

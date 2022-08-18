@@ -6,7 +6,9 @@ import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 import { Context } from "../../Context/AuthContext";
 import "./styles.css";
-import('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Libre+Franklin:wght@200;500&family=Merriweather:wght@300&display=swap');
+import(
+  "https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Libre+Franklin:wght@200;500&family=Merriweather:wght@300&display=swap"
+);
 
 export function Login() {
   const history = useHistory();
@@ -75,9 +77,9 @@ export function Login() {
 
   return (
     <div className="box">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
       <div className="h1-login">
         <h1>Faça seu Login</h1>
       </div>
@@ -118,6 +120,18 @@ export function Login() {
             onChange={valorInput}
             placeholder="Digite sua senha"
           />
+          <div className="aling-singnUp-pass">
+            <p>
+              <a className="cadastro" href="#">
+                Não tem cadastro? Cadastre-se
+              </a>
+            </p>
+            <p>
+              <a className="esqueciasenha" href="#">
+                Esqueci minha senha
+              </a>
+            </p>
+          </div>
         </Form.Group>
         {status.loading ? (
           <Button variant="Secondary" disabled type="submit">
@@ -130,8 +144,6 @@ export function Login() {
         )}
       </Form>
       {/* </Container> */}
-      
     </div>
-    
   );
 }

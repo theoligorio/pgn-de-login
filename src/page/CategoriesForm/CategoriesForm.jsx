@@ -301,21 +301,16 @@ export const CategoriesForm = (props) => {
     <div className="box">
       <Form onSubmit={formSubmit} className="borderForm">
         <h1>Cadastre sua categoria</h1>
-        {status.type == "error" ? (
-          <h3 className="p-alert-error">{status.mensagem}</h3>
-        ) : (
-          ""
-        )}
-        {status.type == "success" ? (
-          <h3 className="p-alert-success">{status.mensagem}</h3>
-        ) : (
-          ""
-        )}
+        
+        {status.type == 'error' 
+        ? <Alert variant="danger">{status.mensagem}</Alert>
+        : ""}
+        {status.type == 'success'
+        ? <Alert variant="success">{status.mensagem}</Alert>
+        : ""}
+
         {status.loading ? (
-          <h3 className="p-alert-validando">Validando...</h3>
-        ) : (
-          ""
-        )}
+          <h3 className="p-alert-validando">Validando...</h3>) : ("")}
         <div className="user">
           <UserCircle size={80} color="#030202" />{" "}
         </div>

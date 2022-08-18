@@ -11,12 +11,13 @@ body {
 }
 .tabela{
     background-color: gray;
-    height: 789px;
+    height: 1600px
 }
 .h1-ListCategories{
-    margin: 20px 0;
-    color: #272727;
+    margin: 20px 0;color: black;
+    font-family: 'Josefin Sans', sans-serif;
 }
+
 .btnLink{
     text-decoration: unset;
     color: #000;
@@ -40,6 +41,6 @@ body {
     justify-content: space-between;
 }
 .button-width{
-    width: 140px;
+    width: 200px;
     margin-bottom: 10px;
 }
